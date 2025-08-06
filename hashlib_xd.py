@@ -37,16 +37,17 @@ def verificar():
     input_hash = hash_contraseña(password)
     df = pd.read_csv(datoscsv)
     pass_datoscsv = df[df['Hash'].str.lower() == cuenta.lower()]
-    for i in pass_datoscsv:
-        if input_hash == pass_datoscsv:
-            messagebox.showinfo('Bie', 'Contraseña válida')
-        else:
-            break
 
-    df = pd.read_csv(datoscsv)
-    if not df[df['Cuenta'].str.lower() == cuenta.lower()]:
-        messagebox.showinfo(':(', 'No hay nada')
+    if pass_datoscsv.empty:
+        messagebox.showinfo(':(', 'No hay nada pa D:')
         return
+    hash_guardado = pass_datoscsv.iloc[0]['Hash']
+
+    if input_hash == hash_guardado:
+        messagebox.showinfo('Biewn', 'Contraseña esta bien :D')
+    else:
+        messagebox.showerror('Mal', 'Contraseña está mal D:')
+
 
 root = tk.Tk()
 root.title("Hashlib Gestor")
